@@ -50,55 +50,59 @@ public class BarCnt : MonoBehaviour
             CircleWL.SetActive(true);
         }
 
-        int GameState = player.GetComponent<GameMgr>().getGameState();
-        switch (GameState)
+        if (isMoving == false)
         {
-            case Constants.s_playing:
-                if (isMoving == false)
-                {
-                    axisH = Input.GetAxisRaw("Horizontal");
-                    axisV = Input.GetAxisRaw("Vertical");
-                }
-                axisV = 0;
-                break;
-            case Constants.s_gameclear:
-                break;
-            case Constants.s_gameover:
-                break;
-            case Constants.s_suspend:
-                break;
-            case Constants.s_resume:
-                break;
-            default:
-                break;
+            axisH = Input.GetAxisRaw("Horizontal");
+            axisV = Input.GetAxisRaw("Vertical");
         }
+        axisV = 0;
+        //int GameState = player.GetComponent<GameMgr>().getGameState();
+        //switch (GameState)
+        //{
+        //    case Constants.s_playing:
+        //        if (isMoving == false)
+        //        {
+        //            axisH = Input.GetAxisRaw("Horizontal");
+        //            axisV = Input.GetAxisRaw("Vertical");
+        //        }
+        //        axisV = 0;
+        //        break;
+        //    case Constants.s_gameclear:
+        //        break;
+        //    case Constants.s_gameover:
+        //        break;
+        //    case Constants.s_suspend:
+        //        break;
+        //    case Constants.s_resume:
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
 
     void FixedUpdate()
     {
-        int GameState = player.GetComponent<GameMgr>().getGameState();
+        //int GameState = player.GetComponent<GameMgr>().getGameState();
         float barSpeed = player.GetComponent<GameMgr>().getBarSpeed();
-        switch (GameState)
-        {
-            case Constants.s_playing:
-                if (GameState != Constants.s_playing)
-                {
-                    return;
-                }
-                velo = new Vector2(axisH, axisV) * barSpeed;
-                rbody.velocity = velo;
-                break;
-            case Constants.s_gameclear:
-                break;
-            case Constants.s_gameover:
-                break;
-            case Constants.s_suspend:
-                break;
-            case Constants.s_resume:
-                break;
-            default:
-                break;
-        }
+        velo = new Vector2(axisH, axisV) * barSpeed;
+        rbody.velocity = velo;
+        //switch (GameState)
+        //{
+        //    case Constants.s_playing:
+        //        velo = new Vector2(axisH, axisV) * barSpeed;
+        //        rbody.velocity = velo;
+        //        break;
+        //    case Constants.s_gameclear:
+        //        break;
+        //    case Constants.s_gameover:
+        //        break;
+        //    case Constants.s_suspend:
+        //        break;
+        //    case Constants.s_resume:
+        //        break;
+        //    default:
+        //        break;
+        //}
     }
 
     public void SetAxis(float h, float v)
