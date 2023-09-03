@@ -70,9 +70,27 @@ public class VirtualPad : MonoBehaviour
     //攻撃
     public void Attack()
     {
-        //GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         //ArrowShoot shoot = player.GetComponent<ArrowShoot>();
         //shoot.Attack();
+        int GameState = player.GetComponent<GameMgr>().getGameState();
+        switch (GameState)
+        {
+            case Constants.s_playing:
+                break;
+            case Constants.s_gameclear:
+                break;
+            case Constants.s_gameover:
+                break;
+            case Constants.s_suspend:
+                player.GetComponent<GameMgr>().add1Ball();
+                break;
+            case Constants.s_resume:
+                break;
+            default:
+                break;
+        }
     }
+
 }
 

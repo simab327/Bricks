@@ -108,7 +108,7 @@ public class UIMgr : MonoBehaviour
         Invoke("GoToTitle", 3.0f);
     }
 
-    void GoToTitle()
+    public void GoToTitle()
     {
         SceneManager.LoadScene("Title");
     }
