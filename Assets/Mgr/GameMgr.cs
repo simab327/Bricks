@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 static class Constants
 {
@@ -30,6 +31,16 @@ public class GameMgr : MonoBehaviour
     public GameObject   ballPrefab;
 
     int[,] mapArray = new int[13, 10];
+
+    public GameObject hasBlocksText;
+    public GameObject hasLifesText;
+    public GameObject addBallsText;
+    public GameObject delBallsText;
+    public GameObject genBallsText;
+    public GameObject addBarLenText;
+    public GameObject delBarLenText;
+    public GameObject ballSpdText;
+    public GameObject barSpdText;
 
     void Start()
     {
@@ -77,16 +88,16 @@ public class GameMgr : MonoBehaviour
             default:
                 break;
         }
-        //Debug.Log("GameMgr: GameState " + GameState);
-        //Debug.Log("GameMgr: hasBlocks " + hasBlocks);
-        //Debug.Log("GameMgr: hasLifes " + hasLifes);
-        //Debug.Log("GameMgr: addBalls " + addBalls);
-        //Debug.Log("GameMgr: delBalls " + delBalls);
-        //Debug.Log("GameMgr: genBalls " + genBalls);
-        Debug.Log("GameMgr: addBarLen " + addBarLen);
-        Debug.Log("GameMgr: delBarLen " + delBarLen);
-        //Debug.Log("GameMgr: ballSpd " + ballSpd);
-        //Debug.Log("GameMgr: barSpd " + barSpd);
+
+        hasBlocksText.GetComponent<Text>().text = hasBlocks.ToString();
+        hasLifesText.GetComponent<Text>().text = hasLifes.ToString();
+        addBallsText.GetComponent<Text>().text = addBalls.ToString();
+        delBallsText.GetComponent<Text>().text = delBalls.ToString();
+        genBallsText.GetComponent<Text>().text = genBalls.ToString();
+        addBarLenText.GetComponent<Text>().text = addBarLen.ToString();
+        delBarLenText.GetComponent<Text>().text = delBarLen.ToString();
+        ballSpdText.GetComponent<Text>().text = ballSpd.ToString();
+        barSpdText.GetComponent<Text>().text = barSpd.ToString();
     }
 
     public void blockSet()
