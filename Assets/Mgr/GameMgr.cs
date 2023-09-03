@@ -4,32 +4,32 @@ using UnityEngine;
 
 static class Constants
 {
-    public const int s_playing = 1;
-    public const int s_gameclear = 2;
-    public const int s_gameover = 3;
-    public const int s_suspend = 4;
-    public const int s_resume = 5;
+    public const int    s_playing = 1;
+    public const int    s_gameclear = 2;
+    public const int    s_gameover = 3;
+    public const int    s_suspend = 4;
+    public const int    s_resume = 5;
 }
 
 public class GameMgr : MonoBehaviour
 {
-    static int GameState;
+    int         GameState;
 
-    static int hasBlocks = 1;
-    static int hasLifes = 3;
-    static int addBalls = 0;
-    static int delBalls = 0;
-    static int genBalls = 0;
+    int         hasBlocks = 1;
+    int         hasLifes = 3;
+    int         addBalls = 0;
+    int         delBalls = 0;
+    int         genBalls = 0;
 
-    static int addBarLen = 0;
-    static int delBarLen = 0;
-    static float ballSpd = 5.0f;
-    static float barSpd = 3.0f;
+    int         addBarLen = 0;
+    int         delBarLen = 0;
+    float       ballSpd = 5.0f;
+    float       barSpd = 3.0f;
 
-    public GameObject blockPrefab;
-    public GameObject ballPrefab;
+    public GameObject   blockPrefab;
+    public GameObject   ballPrefab;
 
-    public static int[,] mapArray = new int[13, 10];
+    int[,] mapArray = new int[13, 10];
 
     void Start()
     {
@@ -115,12 +115,12 @@ public class GameMgr : MonoBehaviour
         GameObject ballObj = Instantiate(ballPrefab, pos, r);
     }
 
-    public static int getGameState()
+    public int getGameState()
     {
         return GameState;
     }
 
-    public static void addBarSpeed()
+    public void addBarSpeed()
     {
         if (barSpd <= 5.0f)
         {
@@ -128,12 +128,12 @@ public class GameMgr : MonoBehaviour
         }
     }
 
-    public static float getBarSpeed()
+    public float getBarSpeed()
     {
         return barSpd;
     }
 
-    public static void delBallSpeed()
+    public void delBallSpeed()
     {
         if (ballSpd >= 3.0f)
         {
@@ -141,28 +141,28 @@ public class GameMgr : MonoBehaviour
         }
     }
 
-    public static float getBallSpeed()
+    public float getBallSpeed()
     {
         return ballSpd;
     }
 
-    public static void addbarLength()
+    public void addbarLength()
     {
         ++addBarLen;
-        //MonoBehaviour.Invoke("delBarLen", 3.0f);
+        Invoke("delBarLength", 10.0f);
     }
 
-    public static void delBarLength()
+    public void delBarLength()
     {
         ++delBarLen;
     }
 
-    public static int getBarLength()
+    public int getBarLength()
     {
         return addBarLen - delBarLen;
     }
 
-    public static void delLife()
+    public void delLife()
     {
         --hasLifes;
         if (hasLifes == 0)
@@ -175,22 +175,22 @@ public class GameMgr : MonoBehaviour
         }
     }
 
-    public static void addLife()
+    public void addLife()
     {
         ++hasLifes;
     }
 
-    public static int getLifes()
+    public int getLifes()
     {
         return hasLifes;
     }
 
-    public static void delBall()
+    public void delBall()
     {
         ++delBalls;
     }
 
-    public static void add1Ball()
+    public void add1Ball()
     {
         ++addBalls;
         if (GameState == Constants.s_suspend)
@@ -199,59 +199,30 @@ public class GameMgr : MonoBehaviour
         }
     }
 
-    public static void add10Ball()
+    public void add10Ball()
     {
         addBalls += 10;
     }
 
-    public static int getBalls()
+    public int getBalls()
     {
         return addBalls - delBalls;
     }
 
-    public static void delBlock()
+    public void delBlock()
     {
         --hasBlocks;
     }
 
-    public static void addBlock()
+    public void addBlock()
     {
         ++hasBlocks;
     }
 
-    public static int getBlocks()
+    public int getBlocks()
     {
         return hasBlocks;
     }
-
-    //public static void SaveItem()
-    //{
-    //    PlayerPrefs.SetInt("Keys", hasKeys);
-    //    PlayerPrefs.SetInt("Arrows", hasArrows);
-    //}
-
-    //public static int getArray(int x, int y)
-    //{
-    //    return mapArray[x, y];
-    //}
-
-    //public static void delArrayBlock(int x, int y)
-    //{
-    //    mapArray[x, y] -= Constants.cBlock;
-    //    //Debug.Log("ItemKeeper: x " + x + ", y " + y);
-    //}
-
-    //public static void setArrayBomb(int x, int y)
-    //{
-    //    mapArray[x, y] += Constants.cBomb;
-    //    //Debug.Log("ItemKeeper: x " + x + ", y " + y);
-    //}
-
-    //public static void delArrayBomb(int x, int y)
-    //{
-    //    mapArray[x, y] -= Constants.cBomb;
-    //    //Debug.Log("ItemKeeper: x " + x + ", y " + y);
-    //}
 
     public void itemSet()
     {
@@ -263,7 +234,6 @@ public class GameMgr : MonoBehaviour
             }
         }
 
-        //add SubBall
         int i = 1;
         while (i < 10)
         {

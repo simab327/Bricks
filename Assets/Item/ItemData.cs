@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class ItemData : MonoBehaviour
 {
-    public int itemType;
-    Vector2 velo;
+    public int  itemType;
+    Vector2     velo;
     Rigidbody2D rbody;
+    GameObject  player;
 
     void Start()
     {
@@ -42,6 +43,7 @@ public class ItemData : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         velo = new Vector2(0, -1);
         rbody.velocity = velo;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
@@ -51,10 +53,10 @@ public class ItemData : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("ItemData: OnTriggerEnter2D");
-
         if (collision.gameObject.tag == "Player")
         {
-            int GameState = GameMgr.getGameState();
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            int GameState = player.GetComponent<GameMgr>().getGameState();
             if (GameState == Constants.s_playing)
             {
                 switch (itemType)
@@ -62,23 +64,19 @@ public class ItemData : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        GameMgr.add1Ball();
+                        player.GetComponent<GameMgr>().add1Ball();
                         break;
                     case 2:
-                        GameMgr.addBarSpeed();
+                        player.GetComponent<GameMgr>().addBarSpeed();
                         break;
                     case 3:
-                        GameMgr.delBallSpeed();
+                        player.GetComponent<GameMgr>().delBallSpeed();
                         break;
                     case 4:
-                        GameMgr.add10Ball();
+                        player.GetComponent<GameMgr>().add10Ball();
                         break;
                     case 5:
-                        GameMgr.addbarLength();
-                        //Debug.Log("ItemData: addbarLength");
-                        //Invoke("delBarLen", 3.0f);
-                        //GameObject player = GameObject.FindGameObjectWithTag("Player");
-                        //player.GetComponent<GameMgr>().addbarLength();
+                        player.GetComponent<GameMgr>().addbarLength();
                         break;
                     default:
                         break;
@@ -92,12 +90,6 @@ public class ItemData : MonoBehaviour
             }
         }
     }
-
-    //void delBarLen()
-    //{
-    //    Debug.Log("ItemData: delBarLen");
-    //    GameMgr.delBarLength();
-    //}
 
 }
 

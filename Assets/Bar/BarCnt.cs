@@ -4,28 +4,24 @@ using UnityEngine;
 
 public class BarCnt : MonoBehaviour
 {
-    //public float speed = 3.0f;
-
-    Vector2 velo;
-
-    float axisH;
-    float axisV;
+    Vector2     velo;
+    float       axisH;
+    float       axisV;
     
     Rigidbody2D rbody;
-    bool isMoving = false;
+    bool        isMoving = false;
 
-    //public static int hp = 3;
-    //public static string gameState;
+    GameObject  SquareWR;
+    GameObject  SquareWL;
+    GameObject  CircleWR;
+    GameObject  CircleWL;
 
-    GameObject SquareWR;
-    GameObject SquareWL;
-    GameObject CircleWR;
-    GameObject CircleWL;
+    GameObject  player;
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         rbody = GetComponent<Rigidbody2D>();
-        //gameState = "playing";
         SquareWR = GameObject.Find("SquareWR");
         SquareWL = GameObject.Find("SquareWL");
         CircleWR = GameObject.Find("CircleWR");
@@ -38,7 +34,7 @@ public class BarCnt : MonoBehaviour
 
     void Update()
     {
-        int BarLength = GameMgr.getBarLength();
+        int BarLength = player.GetComponent<GameMgr>().getBarLength();
         if (BarLength == 0)
         {
             SquareWR.SetActive(false);
@@ -54,7 +50,7 @@ public class BarCnt : MonoBehaviour
             CircleWL.SetActive(true);
         }
 
-        int GameState = GameMgr.getGameState();
+        int GameState = player.GetComponent<GameMgr>().getGameState();
         switch (GameState)
         {
             case Constants.s_playing:
@@ -80,8 +76,8 @@ public class BarCnt : MonoBehaviour
 
     void FixedUpdate()
     {
-        int GameState = GameMgr.getGameState();
-        float barSpeed = GameMgr.getBarSpeed();
+        int GameState = player.GetComponent<GameMgr>().getGameState();
+        float barSpeed = player.GetComponent<GameMgr>().getBarSpeed();
         switch (GameState)
         {
             case Constants.s_playing:

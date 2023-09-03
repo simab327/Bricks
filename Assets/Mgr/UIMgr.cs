@@ -6,20 +6,22 @@ using UnityEngine.UI;
 
 public class UIMgr : MonoBehaviour
 {
-    int oLifes = 0;
-    public GameObject hpImage;
-    public Sprite life3Image;
-    public Sprite life2Image;
-    public Sprite life1Image;
-    public Sprite life0Image;
-    public GameObject mainImage;
-    public GameObject resetButton;
-    public Sprite gameOverSpr;
-    public Sprite gameClearSpr;
-    public GameObject inputPanel;
+    int                 oLifes = 0;
+    public GameObject   hpImage;
+    public Sprite       life3Image;
+    public Sprite       life2Image;
+    public Sprite       life1Image;
+    public Sprite       life0Image;
+    public GameObject   mainImage;
+    public GameObject   resetButton;
+    public Sprite       gameOverSpr;
+    public Sprite       gameClearSpr;
+    public GameObject   inputPanel;
+    GameObject          player;
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         UpdateHP();
         Invoke("InactiveImage", 1.0f);
         resetButton.SetActive(false);
@@ -27,7 +29,7 @@ public class UIMgr : MonoBehaviour
 
     void Update()
     {
-        int GameState = GameMgr.getGameState();
+        int GameState = player.GetComponent<GameMgr>().getGameState();
         switch (GameState)
         {
             case Constants.s_playing:
@@ -41,7 +43,7 @@ public class UIMgr : MonoBehaviour
             case Constants.s_suspend:
                 if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Fire3"))
                 {
-                    GameMgr.add1Ball();
+                    player.GetComponent<GameMgr>().add1Ball();
                 }
                 else if (Input.GetButtonDown("Cancel"))
                 {
@@ -58,11 +60,10 @@ public class UIMgr : MonoBehaviour
 
     void UpdateHP()
     {
-        int tLifes;
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        int GameState = player.GetComponent<GameMgr>().getGameState();
         if (player != null)
         {
-            tLifes = GameMgr.getLifes();
+            int tLifes = player.GetComponent<GameMgr>().getLifes();
             if (tLifes != oLifes)
             {
                 oLifes = tLifes;
@@ -70,7 +71,6 @@ public class UIMgr : MonoBehaviour
                 {
                     hpImage.GetComponent<Image>().sprite = life0Image;
                     resetButton.SetActive(true);
-                    //GameOver();
                 }
                 else if (oLifes == 1)
                 {
@@ -98,7 +98,6 @@ public class UIMgr : MonoBehaviour
         mainImage.SetActive(true);
         mainImage.GetComponent<Image>().sprite = gameOverSpr;
         inputPanel.SetActive(false);
-        //GameMgr.gameState = "gameover";
     }
 
     public void GameClear()
@@ -106,7 +105,6 @@ public class UIMgr : MonoBehaviour
         mainImage.SetActive(true);
         mainImage.GetComponent<Image>().sprite = gameClearSpr;
         inputPanel.SetActive(false);
-        //GameMgr.gameState = "gameclear";
         Invoke("GoToTitle", 3.0f);
     }
 

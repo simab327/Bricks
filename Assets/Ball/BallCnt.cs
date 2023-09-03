@@ -5,11 +5,13 @@ using UnityEngine;
 public class BallCnt : MonoBehaviour
 {
     public float deleteTime = 1.0f;
-    Vector2 velo;
+    Vector2     velo;
     Rigidbody2D rbody;
+    GameObject  player;
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         rbody = GetComponent<Rigidbody2D>();
         velo = new Vector2(1, -1);
         rbody.velocity = velo;
@@ -17,9 +19,9 @@ public class BallCnt : MonoBehaviour
 
     void Update()
     {
-        velo = rbody.velocity;
-        float maxBallSpeed = GameMgr.getBallSpeed();
+        float maxBallSpeed = player.GetComponent<GameMgr>().getBallSpeed();
         float clampedSpeed = Mathf.Clamp(velo.magnitude, 3, maxBallSpeed);
+        velo = rbody.velocity;
         rbody.velocity = velo.normalized * clampedSpeed;
     }
 
@@ -46,18 +48,18 @@ public class BallCnt : MonoBehaviour
 
     void GetDamage(GameObject Hall)
     {
-        int GameState = GameMgr.getGameState();
+        int GameState = player.GetComponent<GameMgr>().getGameState();
         if (GameState == Constants.s_playing)
         {
             rbody.velocity = new Vector2(0, 0);
             GetComponent<CircleCollider2D>().enabled = false;
             Destroy(gameObject, deleteTime);
 
-            GameMgr.delBall();
-            int SubBalls = GameMgr.getBalls();
+            player.GetComponent<GameMgr>().delBall();
+            int SubBalls = player.GetComponent<GameMgr>().getBalls();
             if (SubBalls == 0)
             {
-                GameMgr.delLife();
+                player.GetComponent<GameMgr>().delLife();
             }
         }
     }
