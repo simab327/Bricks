@@ -16,7 +16,7 @@ public class GameMgr : MonoBehaviour
 {
     int         GameState;
 
-    int         hasBlocks = 1;
+    int         hasBricks = 1;
     int         hasLifes = 3;
     int         addBalls = 0;
     int         delBalls = 0;
@@ -27,26 +27,16 @@ public class GameMgr : MonoBehaviour
     float       ballSpd = 5.0f;
     float       barSpd = 3.0f;
 
-    public GameObject   blockPrefab;
+    public GameObject   brickPrefab;
     public GameObject   ballPrefab;
 
     int[,] mapArray = new int[13, 10];
 
-    public GameObject hasBlocksText;
-    public GameObject hasLifesText;
-    public GameObject addBallsText;
-    public GameObject delBallsText;
-    public GameObject genBallsText;
-    public GameObject addBarLenText;
-    public GameObject delBarLenText;
-    public GameObject ballSpdText;
-    public GameObject barSpdText;
-
     void Start()
     {
-        GameState = Constants.s_playing;
+        GameState = Constants.s_suspend;
         itemSet();
-        add1Ball();
+        //add1Ball();
     }
 
     void Update()
@@ -64,7 +54,7 @@ public class GameMgr : MonoBehaviour
                 {
                     GameState = Constants.s_gameover;
                 }
-                if (hasBlocks == 0)
+                if (hasBricks == 0)
                 {
                     GameState = Constants.s_gameclear;
                 }
@@ -88,21 +78,11 @@ public class GameMgr : MonoBehaviour
             default:
                 break;
         }
-
-        hasBlocksText.GetComponent<Text>().text = hasBlocks.ToString();
-        hasLifesText.GetComponent<Text>().text = hasLifes.ToString();
-        addBallsText.GetComponent<Text>().text = addBalls.ToString();
-        delBallsText.GetComponent<Text>().text = delBalls.ToString();
-        genBallsText.GetComponent<Text>().text = genBalls.ToString();
-        addBarLenText.GetComponent<Text>().text = addBarLen.ToString();
-        delBarLenText.GetComponent<Text>().text = delBarLen.ToString();
-        ballSpdText.GetComponent<Text>().text = ballSpd.ToString();
-        barSpdText.GetComponent<Text>().text = barSpd.ToString();
     }
 
-    public void blockSet()
+    public void brickSet()
     {
-        hasBlocks = 0;
+        hasBricks = 0;
         for (int y = 0; y < 10; y++)
         {
             for (int x = 0; x < 13; x++)
@@ -111,8 +91,8 @@ public class GameMgr : MonoBehaviour
                 Vector3 pos = transform.position;
                 pos.x = -1.8f + 0.3f * x;
                 pos.y = 3.0f - 0.2f * y;
-                GameObject blockObj = Instantiate(blockPrefab, pos, r);
-                ++hasBlocks;
+                GameObject brickObj = Instantiate(brickPrefab, pos, r);
+                ++hasBricks;
             }
         }
     }
@@ -222,17 +202,17 @@ public class GameMgr : MonoBehaviour
 
     public void delBlock()
     {
-        --hasBlocks;
+        --hasBricks;
     }
 
-    public void addBlock()
+    public void addBrick()
     {
-        ++hasBlocks;
+        ++hasBricks;
     }
 
-    public int getBlocks()
+    public int getBricks()
     {
-        return hasBlocks;
+        return hasBricks;
     }
 
     public void itemSet()
@@ -305,7 +285,7 @@ public class GameMgr : MonoBehaviour
             }
         }
 
-        hasBlocks = 0;
+        hasBricks = 0;
         for (int y = 0; y < 10; y++)
         {
             for (int x = 0; x < 13; x++)
@@ -314,10 +294,10 @@ public class GameMgr : MonoBehaviour
                 Vector3 pos = transform.position;
                 pos.x = -1.8f + 0.3f * x;
                 pos.y = 3.0f - 0.2f * y;
-                GameObject blockObj = Instantiate(blockPrefab, pos, r);
-                BlockCnt bc = blockObj.GetComponent<BlockCnt>();
+                GameObject brickObj = Instantiate(brickPrefab, pos, r);
+                BrickCnt bc = brickObj.GetComponent<BrickCnt>();
                 bc.hasItemType = mapArray[x, y];
-                ++hasBlocks;
+                ++hasBricks;
             }
         }
     }

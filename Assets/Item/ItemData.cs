@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ItemData : MonoBehaviour
 {
     public int  itemType;
     Vector2     velo;
     Rigidbody2D rbody;
-    GameObject  player;
+    //GameObject  bar;
 
     void Start()
     {
         Material mat = this.GetComponent<Renderer>().material;
-
         switch (itemType)
         {
             case 0:
@@ -43,7 +43,7 @@ public class ItemData : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         velo = new Vector2(0, -1);
         rbody.velocity = velo;
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        //bar = GameObject.FindGameObjectWithTag("Bar");
     }
 
     void Update()
@@ -52,11 +52,10 @@ public class ItemData : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("ItemData: OnTriggerEnter2D");
-        if (collision.gameObject.tag == "Player")
+        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
+        if (collision.gameObject.tag == "Bar" || collision.gameObject.tag == "BarSub")
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            int GameState = player.GetComponent<GameMgr>().getGameState();
+            int GameState = bar.GetComponent<GameMgr>().getGameState();
             if (GameState == Constants.s_playing)
             {
                 switch (itemType)
@@ -64,19 +63,19 @@ public class ItemData : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        player.GetComponent<GameMgr>().add1Ball();
+                        bar.GetComponent<GameMgr>().add1Ball();
                         break;
                     case 2:
-                        player.GetComponent<GameMgr>().addBarSpeed();
+                        bar.GetComponent<GameMgr>().addBarSpeed();
                         break;
                     case 3:
-                        player.GetComponent<GameMgr>().delBallSpeed();
+                        bar.GetComponent<GameMgr>().delBallSpeed();
                         break;
                     case 4:
-                        player.GetComponent<GameMgr>().add10Ball();
+                        bar.GetComponent<GameMgr>().add10Ball();
                         break;
                     case 5:
-                        player.GetComponent<GameMgr>().addbarLength();
+                        bar.GetComponent<GameMgr>().addbarLength();
                         break;
                     default:
                         break;

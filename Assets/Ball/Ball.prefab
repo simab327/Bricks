@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1714854380132825092}
   - component: {fileID: 1714854380132825091}
   - component: {fileID: 1263917559433570736}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ball
-  m_TagString: Fire
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,4 +137,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deleteTime: 1
-  velo: {x: 0, y: 0}

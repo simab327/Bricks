@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class VirtualPad : MonoBehaviour
 {
     public float MaxLength = 70;    //タブが動く最大距離
     public bool is4DPad = false;    //上下左右に動かすフラグ
-    GameObject bar;              //操作するプレイヤーのGameObject
+    //GameObject bar;              //操作するプレイヤーのGameObject
     Vector2 defPos;     //タブの初期座標
     Vector2 downPos;    //タッチ位置
 
@@ -15,7 +16,7 @@ public class VirtualPad : MonoBehaviour
     void Start()
     {
         //プレイヤーキャラクターを取得
-        bar = GameObject.FindGameObjectWithTag("Player");
+        //bar = GameObject.FindGameObjectWithTag("Bar");
         //タブの初期座標
         defPos = GetComponent<RectTransform>().localPosition;
     }
@@ -33,6 +34,7 @@ public class VirtualPad : MonoBehaviour
     //ドラッグイベント
     public void PadDrag()
     {
+        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
         //マウスポイントのスクリーン座標
         Vector2 mousePosition = Input.mousePosition;
         //新しいタブの位置を求める
@@ -60,6 +62,7 @@ public class VirtualPad : MonoBehaviour
     //アップイベント
     public void PadUp()
     {
+        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
         //タブの位置の初期化
         GetComponent<RectTransform>().localPosition = defPos;
         //プレイヤーキャラクターを停止させる
@@ -70,10 +73,21 @@ public class VirtualPad : MonoBehaviour
     //攻撃
     public void Attack()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        //ArrowShoot shoot = player.GetComponent<ArrowShoot>();
-        //shoot.Attack();
-        int GameState = player.GetComponent<GameMgr>().getGameState();
+        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
+
+        if (bar == null)
+        {
+            Debug.Log("VirtualPad: bar == null");
+        }
+        else
+        {
+            Debug.Log("VirtualPad: bar == valid: " + bar);
+        }
+
+        int GameState = bar.GetComponent<GameMgr>().getGameState();
+
+        Debug.Log("VirtualPad: GameStat: " + GameState);
+
         switch (GameState)
         {
             case Constants.s_playing:
@@ -83,7 +97,7 @@ public class VirtualPad : MonoBehaviour
             case Constants.s_gameover:
                 break;
             case Constants.s_suspend:
-                player.GetComponent<GameMgr>().add1Ball();
+                bar.GetComponent<GameMgr>().add1Ball();
                 break;
             case Constants.s_resume:
                 break;

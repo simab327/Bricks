@@ -17,19 +17,19 @@ public class UIMgr : MonoBehaviour
     public Sprite       gameOverSpr;
     public Sprite       gameClearSpr;
     public GameObject   inputPanel;
-    GameObject          player;
+    //GameObject          bar;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        UpdateHP();
+        //bar = GameObject.FindGameObjectWithTag("Bar");
         Invoke("InactiveImage", 1.0f);
         resetButton.SetActive(false);
     }
 
     void Update()
     {
-        int GameState = player.GetComponent<GameMgr>().getGameState();
+        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
+        int GameState = bar.GetComponent<GameMgr>().getGameState();
         switch (GameState)
         {
             case Constants.s_playing:
@@ -43,7 +43,7 @@ public class UIMgr : MonoBehaviour
             case Constants.s_suspend:
                 if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Fire3"))
                 {
-                    player.GetComponent<GameMgr>().add1Ball();
+                    bar.GetComponent<GameMgr>().add1Ball();
                 }
                 else if (Input.GetButtonDown("Cancel"))
                 {
@@ -60,10 +60,10 @@ public class UIMgr : MonoBehaviour
 
     void UpdateHP()
     {
-        int GameState = player.GetComponent<GameMgr>().getGameState();
-        if (player != null)
+        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
+        if (bar != null)
         {
-            int tLifes = player.GetComponent<GameMgr>().getLifes();
+            int tLifes = bar.GetComponent<GameMgr>().getLifes();
             if (tLifes != oLifes)
             {
                 oLifes = tLifes;
@@ -85,6 +85,10 @@ public class UIMgr : MonoBehaviour
                     hpImage.GetComponent<Image>().sprite = life3Image;
                 }
             }
+        }
+        else
+        {
+            SceneManager.LoadScene("Title");
         }
     }
 

@@ -4,16 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Arrow
-  - Exit
-  - Door
   - Item
-  - ItemBox
-  - Enemy
-  - Bomb
-  - Fire
   - Wall
   - Hall
+  - Ball
+  - Bar
+  - BarSub
   layers:
   - Default
   - TransparentFX
@@ -21,15 +17,15 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - Player
-  - Arrow
-  - Enemy
-  - Bullet
-  - Bomb
-  - Fire
+  - Bar
+  - Hole
   - Wall
+  - Ball
+  - Item
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

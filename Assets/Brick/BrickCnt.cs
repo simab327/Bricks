@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class BlockCnt : MonoBehaviour
+public class BrickCnt : MonoBehaviour
 {
-    public GameObject   doorPrefab;
     public GameObject   itemPrefab;
 
     public int          hasItemType;
-    GameObject          player;
+    //GameObject          bar;
 
     void Start()
     {
@@ -39,7 +39,6 @@ public class BlockCnt : MonoBehaviour
             default:
                 break;
         }
-        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
@@ -48,10 +47,11 @@ public class BlockCnt : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Fire")
+        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
+        if (collision.gameObject.tag == "Ball")
         {
             Destroy(this.gameObject);
-            player.GetComponent<GameMgr>().delBlock();
+            bar.GetComponent<GameMgr>().delBlock();
 
             if (hasItemType != 0)
             {
@@ -70,10 +70,11 @@ public class BlockCnt : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Fire")
+        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
+        if (collision.gameObject.tag == "Ball")
         {
             Destroy(this.gameObject);
-            player.GetComponent<GameMgr>().delBlock();
+            bar.GetComponent<GameMgr>().delBlock();
 
             if (hasItemType != 0)
             {

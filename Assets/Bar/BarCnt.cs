@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BarCnt : MonoBehaviour
 {
@@ -16,11 +17,11 @@ public class BarCnt : MonoBehaviour
     GameObject  CircleWR;
     GameObject  CircleWL;
 
-    GameObject  player;
+    //GameObject  bar;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        //bar = GameObject.FindGameObjectWithTag("Bar");
         rbody = GetComponent<Rigidbody2D>();
         SquareWR = GameObject.Find("SquareWR");
         SquareWL = GameObject.Find("SquareWL");
@@ -34,7 +35,8 @@ public class BarCnt : MonoBehaviour
 
     void Update()
     {
-        int BarLength = player.GetComponent<GameMgr>().getBarLength();
+        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
+        int BarLength = bar.GetComponent<GameMgr>().getBarLength();
         if (BarLength == 0)
         {
             SquareWR.SetActive(false);
@@ -56,53 +58,14 @@ public class BarCnt : MonoBehaviour
             axisV = Input.GetAxisRaw("Vertical");
         }
         axisV = 0;
-        //int GameState = player.GetComponent<GameMgr>().getGameState();
-        //switch (GameState)
-        //{
-        //    case Constants.s_playing:
-        //        if (isMoving == false)
-        //        {
-        //            axisH = Input.GetAxisRaw("Horizontal");
-        //            axisV = Input.GetAxisRaw("Vertical");
-        //        }
-        //        axisV = 0;
-        //        break;
-        //    case Constants.s_gameclear:
-        //        break;
-        //    case Constants.s_gameover:
-        //        break;
-        //    case Constants.s_suspend:
-        //        break;
-        //    case Constants.s_resume:
-        //        break;
-        //    default:
-        //        break;
-        //}
     }
 
     void FixedUpdate()
     {
-        //int GameState = player.GetComponent<GameMgr>().getGameState();
-        float barSpeed = player.GetComponent<GameMgr>().getBarSpeed();
+        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
+        float barSpeed = bar.GetComponent<GameMgr>().getBarSpeed();
         velo = new Vector2(axisH, axisV) * barSpeed;
         rbody.velocity = velo;
-        //switch (GameState)
-        //{
-        //    case Constants.s_playing:
-        //        velo = new Vector2(axisH, axisV) * barSpeed;
-        //        rbody.velocity = velo;
-        //        break;
-        //    case Constants.s_gameclear:
-        //        break;
-        //    case Constants.s_gameover:
-        //        break;
-        //    case Constants.s_suspend:
-        //        break;
-        //    case Constants.s_resume:
-        //        break;
-        //    default:
-        //        break;
-        //}
     }
 
     public void SetAxis(float h, float v)

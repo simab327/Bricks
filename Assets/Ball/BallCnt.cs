@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BallCnt : MonoBehaviour
 {
     public float deleteTime = 1.0f;
     Vector2     velo;
     Rigidbody2D rbody;
-    GameObject  player;
+    //GameObject  bar;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        //bar = GameObject.FindGameObjectWithTag("Bar");
         rbody = GetComponent<Rigidbody2D>();
         velo = new Vector2(1, -1);
         rbody.velocity = velo;
@@ -19,7 +20,8 @@ public class BallCnt : MonoBehaviour
 
     void Update()
     {
-        float maxBallSpeed = player.GetComponent<GameMgr>().getBallSpeed();
+        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
+        float maxBallSpeed = bar.GetComponent<GameMgr>().getBallSpeed();
         float clampedSpeed = Mathf.Clamp(velo.magnitude, 3, maxBallSpeed);
         velo = rbody.velocity;
         rbody.velocity = velo.normalized * clampedSpeed;
@@ -27,7 +29,6 @@ public class BallCnt : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Debug.Log("Ball: OnCollisionEnter2D");
         if (collision.gameObject.tag == "Hall")
         {
             GetDamage(collision.gameObject);
@@ -48,18 +49,19 @@ public class BallCnt : MonoBehaviour
 
     void GetDamage(GameObject Hall)
     {
-        int GameState = player.GetComponent<GameMgr>().getGameState();
+        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
+        int GameState = bar.GetComponent<GameMgr>().getGameState();
         if (GameState == Constants.s_playing)
         {
             rbody.velocity = new Vector2(0, 0);
             GetComponent<CircleCollider2D>().enabled = false;
             Destroy(gameObject, deleteTime);
 
-            player.GetComponent<GameMgr>().delBall();
-            int SubBalls = player.GetComponent<GameMgr>().getBalls();
+            bar.GetComponent<GameMgr>().delBall();
+            int SubBalls = bar.GetComponent<GameMgr>().getBalls();
             if (SubBalls == 0)
             {
-                player.GetComponent<GameMgr>().delLife();
+                bar.GetComponent<GameMgr>().delLife();
             }
         }
     }
