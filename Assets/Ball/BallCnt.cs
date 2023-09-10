@@ -8,11 +8,11 @@ public class BallCnt : MonoBehaviour
     public float deleteTime = 1.0f;
     Vector2     velo;
     Rigidbody2D rbody;
-    //GameObject  bar;
+    GameObject  bar;
 
     void Start()
     {
-        //bar = GameObject.FindGameObjectWithTag("Bar");
+        bar = GameObject.FindGameObjectWithTag("Bar");
         rbody = GetComponent<Rigidbody2D>();
         velo = new Vector2(1, -1);
         rbody.velocity = velo;
@@ -20,7 +20,6 @@ public class BallCnt : MonoBehaviour
 
     void Update()
     {
-        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
         float maxBallSpeed = bar.GetComponent<GameMgr>().getBallSpeed();
         float clampedSpeed = Mathf.Clamp(velo.magnitude, 3, maxBallSpeed);
         velo = rbody.velocity;
@@ -49,7 +48,6 @@ public class BallCnt : MonoBehaviour
 
     void GetDamage(GameObject Hall)
     {
-        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
         int GameState = bar.GetComponent<GameMgr>().getGameState();
         if (GameState == Constants.s_playing)
         {

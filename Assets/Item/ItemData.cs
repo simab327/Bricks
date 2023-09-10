@@ -8,10 +8,11 @@ public class ItemData : MonoBehaviour
     public int  itemType;
     Vector2     velo;
     Rigidbody2D rbody;
-    //GameObject  bar;
+    GameObject  bar;
 
     void Start()
     {
+        bar = GameObject.FindGameObjectWithTag("Bar");
         Material mat = this.GetComponent<Renderer>().material;
         switch (itemType)
         {
@@ -43,7 +44,6 @@ public class ItemData : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         velo = new Vector2(0, -1);
         rbody.velocity = velo;
-        //bar = GameObject.FindGameObjectWithTag("Bar");
     }
 
     void Update()
@@ -52,7 +52,6 @@ public class ItemData : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
         if (collision.gameObject.tag == "Bar" || collision.gameObject.tag == "BarSub")
         {
             int GameState = bar.GetComponent<GameMgr>().getGameState();

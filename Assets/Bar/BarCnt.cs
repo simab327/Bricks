@@ -17,11 +17,11 @@ public class BarCnt : MonoBehaviour
     GameObject  CircleWR;
     GameObject  CircleWL;
 
-    //GameObject  bar;
+    GameObject  bar;
 
     void Start()
     {
-        //bar = GameObject.FindGameObjectWithTag("Bar");
+        bar = GameObject.FindGameObjectWithTag("Bar");
         rbody = GetComponent<Rigidbody2D>();
         SquareWR = GameObject.Find("SquareWR");
         SquareWL = GameObject.Find("SquareWL");
@@ -35,7 +35,6 @@ public class BarCnt : MonoBehaviour
 
     void Update()
     {
-        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
         int BarLength = bar.GetComponent<GameMgr>().getBarLength();
         if (BarLength == 0)
         {
@@ -62,7 +61,6 @@ public class BarCnt : MonoBehaviour
 
     void FixedUpdate()
     {
-        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
         float barSpeed = bar.GetComponent<GameMgr>().getBarSpeed();
         velo = new Vector2(axisH, axisV) * barSpeed;
         rbody.velocity = velo;

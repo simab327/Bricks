@@ -8,10 +8,11 @@ public class BrickCnt : MonoBehaviour
     public GameObject   itemPrefab;
 
     public int          hasItemType;
-    //GameObject          bar;
+    GameObject          bar;
 
     void Start()
     {
+        bar = GameObject.FindGameObjectWithTag("Bar");
         Material mat = this.GetComponent<Renderer>().material;
         switch (hasItemType)
         {
@@ -47,7 +48,6 @@ public class BrickCnt : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
         if (collision.gameObject.tag == "Ball")
         {
             Destroy(this.gameObject);
@@ -70,7 +70,6 @@ public class BrickCnt : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
         if (collision.gameObject.tag == "Ball")
         {
             Destroy(this.gameObject);

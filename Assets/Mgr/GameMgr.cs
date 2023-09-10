@@ -36,7 +36,6 @@ public class GameMgr : MonoBehaviour
     {
         GameState = Constants.s_suspend;
         itemSet();
-        //add1Ball();
     }
 
     void Update()

@@ -17,18 +17,17 @@ public class UIMgr : MonoBehaviour
     public Sprite       gameOverSpr;
     public Sprite       gameClearSpr;
     public GameObject   inputPanel;
-    //GameObject          bar;
+    GameObject          bar;
 
     void Start()
     {
-        //bar = GameObject.FindGameObjectWithTag("Bar");
+        bar = GameObject.FindGameObjectWithTag("Bar");
         Invoke("InactiveImage", 1.0f);
         resetButton.SetActive(false);
     }
 
     void Update()
     {
-        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
         int GameState = bar.GetComponent<GameMgr>().getGameState();
         switch (GameState)
         {
@@ -60,7 +59,6 @@ public class UIMgr : MonoBehaviour
 
     void UpdateHP()
     {
-        GameObject bar = GameObject.FindGameObjectWithTag("Bar");
         if (bar != null)
         {
             int tLifes = bar.GetComponent<GameMgr>().getLifes();

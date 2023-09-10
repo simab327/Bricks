@@ -13,7 +13,7 @@ public class ScrollView : MonoBehaviour
 
     void Awake()
     {
-        Application.logMessageReceived += LoggedCb;  // ログ出力時のコールバックを登録
+        Application.logMessageReceived += LoggedCb;
         _logText = DebugText.GetComponent<Text>();
     }
 
@@ -31,7 +31,7 @@ public class ScrollView : MonoBehaviour
 
         _logText.text += logstr;
         _logText.text += "\n";
-        // 常にTextの最下部（最新）を表示するように強制スクロール
+
         DebugWindow.GetComponent<ScrollRect>().verticalNormalizedPosition = 0;
     }
 }
